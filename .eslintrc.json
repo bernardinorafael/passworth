@@ -1,0 +1,17 @@
+{
+  "extends": "@rocketseat/eslint-config/react",
+  "rules": {
+    "no-undef": "off",
+    "prettier/prettier": [
+      0,
+      {
+        "printWidth": 95,
+        "tabWidth": 2,
+        "singleQuote": false,
+        "trailingComma": "all",
+        "arrowParens": "always",
+        "semi": false
+      }
+    ]
+  }
+}
