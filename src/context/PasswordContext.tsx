@@ -2,6 +2,10 @@ import * as React from "react"
 
 type PasswordContextType = {
   password: number
+  getNumbers: () => string
+  getSymbols: () => string
+  getLetterLowerCase: () => string
+  getLetterUpperCase: () => string
   handleDecrementPassword: () => void
   handleIncrementPassword: () => void
 }
@@ -9,20 +13,42 @@ type PasswordContextType = {
 export const PasswordContext = React.createContext<PasswordContextType | null>(null)
 
 export function PasswordProvider({ children }: { children: React.ReactNode }) {
-  const [password, setPassword] = React.useState<number>(6)
+  const [password, setPassword] = React.useState<number>(8)
+
   const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-  const symbols = ["!", "@", "#", "$", "%", "&", "*", "/", "+", ">", "["]
-  const characters = Array.from(Array(26).map((_, i) => i + 97))
-  const lowerCaseCharacters = characters.map((item) => String.fromCharCode(item))
-  const upperCaseCharacters = lowerCaseCharacters.map((item) => item.toUpperCase())
+  const symbols = ["!", "@", "#", "$", "%", "&", "*", "/", "[", ">", "+"]
+
+  function getLetterUpperCase() {
+    const random = Math.floor(Math.random() * 10 + 65)
+    const letterUpperCase = String.fromCharCode(random)
+
+    return letterUpperCase
+  }
+
+  function getLetterLowerCase() {
+    const random = Math.floor(Math.random() * 10 + 97)
+    const letterLowerCase = String.fromCharCode(random)
+
+    return letterLowerCase
+  }
+
+  function getSymbols() {
+    const random = Math.floor(Math.random() * symbols.length)
+    return symbols[random]
+  }
+
+  function getNumbers() {
+    const random = Math.floor(Math.random() * numbers.length)
+    return numbers[random].toString()
+  }
 
   function handleDecrementPassword() {
-    if (password <= 6) return
+    if (password <= 8) return
     setPassword(password - 1)
   }
 
   function handleIncrementPassword() {
-    if (password >= 20) return
+    if (password >= 24) return
     setPassword(password + 1)
   }
 
@@ -30,6 +56,10 @@ export function PasswordProvider({ children }: { children: React.ReactNode }) {
     <PasswordContext.Provider
       value={{
         password,
+        getNumbers,
+        getSymbols,
+        getLetterLowerCase,
+        getLetterUpperCase,
         handleDecrementPassword,
         handleIncrementPassword,
       }}
