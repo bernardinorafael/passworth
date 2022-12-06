@@ -89,6 +89,7 @@ export const ResultContainer = styled.div`
   display: flex;
   gap: 1rem;
   width: 100%;
+  user-select: none;
 
   input {
     background-color: ${({ theme }) => theme.COLORS.gold[700]};
@@ -96,13 +97,13 @@ export const ResultContainer = styled.div`
     border: none;
     color: ${({ theme }) => theme.COLORS.gold[50]};
     flex: 1;
+    font-family: IBM Plex Mono, monospace;
     font-size: 1.25rem;
     height: 3rem;
     outline: none;
     padding: 0 0.5rem;
     pointer-events: none;
     text-align: center;
-    user-select: none;
   }
 
   button {
