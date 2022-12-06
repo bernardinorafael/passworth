@@ -13,15 +13,48 @@ import {
 
 export default function HomeScreen() {
   const { COLORS } = React.useContext(ThemeContext)
-  const { password, handleDecrementPassword, handleIncrementPassword } = usePassword()
+  const {
+    password,
+    getNumbers,
+    getSymbols,
+    getLetterLowerCase,
+    getLetterUpperCase,
+    handleDecrementPassword,
+    handleIncrementPassword,
+  } = usePassword()
 
   const [buttonLowerCase, setButtonLowerCase] = React.useState<boolean>(false)
   const [buttonUpperCase, setButtonUppercase] = React.useState<boolean>(false)
   const [buttonCharacter, setButtonCharacter] = React.useState<boolean>(false)
   const [buttonNumber, setButtonNumber] = React.useState<boolean>(false)
+  const [passwordGenerated, setPasswordGenerated] = React.useState("")
   const [isCopyButtonActive, setIsCopyButtonActive] = React.useState<boolean>(false)
 
+  function handleGeneratePassword(
+    getNumbers: () => string,
+    getSymbols: () => string,
+    getLetterLowerCase: () => string,
+    getLetterUpperCase: () => string
+  ) {
+    const buttonGenerators = [getLetterLowerCase, getLetterUpperCase, getNumbers, getSymbols]
+
+    setPasswordGenerated("")
+    setIsCopyButtonActive(false)
+
+    for (let i = 0; i < password; i = i + buttonGenerators.length) {
+      buttonGenerators.forEach(() => {
+        const random = Math.floor(Math.random() * buttonGenerators.length)
+        const randomFunctionGenerator = buttonGenerators[random]()
+
+        setPasswordGenerated((state) =>
+          [...state, randomFunctionGenerator].join("").slice(0, password)
+        )
+      })
+    }
+  }
+
   function handleToggleCopyButton() {
+    if (passwordGenerated) navigator.clipboard.writeText(passwordGenerated)
     setIsCopyButtonActive(true)
   }
 
@@ -29,7 +62,7 @@ export default function HomeScreen() {
     <Container>
       <main>
         <strong>
-          Selecione um número entre 6 e 20
+          Selecione um número entre 8 e 24
           <Icon.ArrowBendRightDown />
         </strong>
 
@@ -37,9 +70,7 @@ export default function HomeScreen() {
           <button type="button" onClick={handleDecrementPassword}>
             <Icon.Minus size={24} />
           </button>
-          <form id="form-password">
-            <input value={password} type="number" />
-          </form>
+          <input value={password} type="number" />
           <button type="button" onClick={handleIncrementPassword}>
             <Icon.Plus size={24} />
           </button>
@@ -71,7 +102,7 @@ export default function HomeScreen() {
         </strong>
 
         <ResultContainer>
-          <input type="text" />
+          <input value={passwordGenerated} type="text" />
           <button onClick={handleToggleCopyButton} type="button">
             {isCopyButtonActive ? (
               <Icon.CheckSquareOffset size={24} weight="bold" color={COLORS.green[200]} />
@@ -81,7 +112,17 @@ export default function HomeScreen() {
           </button>
         </ResultContainer>
 
-        <ButtonGeneratePassword form="form-password" type="button">
+        <ButtonGeneratePassword
+          onClick={() =>
+            handleGeneratePassword(
+              getNumbers,
+              getSymbols,
+              getLetterLowerCase,
+              getLetterUpperCase
+            )
+          }
+          type="button"
+        >
           Gerar senha
           <Icon.ArrowRight weight="bold" />
         </ButtonGeneratePassword>
