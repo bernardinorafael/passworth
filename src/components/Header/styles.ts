@@ -47,12 +47,12 @@ export const Container = styled.div`
         user-select: none;
 
         &:hover {
-          background-color: ${({ theme }) => theme.COLORS.cyan[100]};
+          background-color: ${({ theme }) => theme.COLORS.base[1000]};
           transition: background-color 0.3s;
         }
 
         &.active {
-          background-color: ${({ theme }) => theme.COLORS.cyan[300]};
+          background-color: ${({ theme }) => theme.COLORS.cyan[100]};
         }
       }
     }

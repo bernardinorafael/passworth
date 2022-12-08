@@ -33,6 +33,10 @@ export const GlobalStyle = createGlobalStyle`
 		color: inherit;
 	}
 	
+	button {
+		cursor: pointer;
+	}
+	
 	::-webkit-scrollbar {
 		width: .8rem;
 		background: ${({ theme }) => theme.COLORS.base[700]};

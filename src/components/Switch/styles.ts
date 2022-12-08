@@ -31,6 +31,6 @@ export const SwitchThumb = styled(Thumb)`
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 
   &[data-state="checked"] {
-    transform: translateX(15px);
+    transform: translateX(16px);
   }
 `
