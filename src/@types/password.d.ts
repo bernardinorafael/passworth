@@ -1,11 +1,12 @@
 export type Password = {
   id: string
-  length: number
-	createdAt: Date
-	updatedAt: Date
-  number: boolean
-  symbol: boolean
-  lowercase: boolean
-  uppercase: boolean
+  passwordLength: number
+  password: string
+  createdAt: Date
+  updatedAt?: Date
+  hasNumber: boolean | null
+  hasSymbol: boolean | null
+  hasLowercase: boolean | null
+  hasUppercase: boolean | null
   description: string
 }

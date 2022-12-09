@@ -16,9 +16,9 @@ export const dark = {
     },
 
     cyan: {
+      100: "#d1fcf2",
       300: "#a1f9e5",
       500: "#72f5d8",
-      700: "#05a2c2",
     },
 
     green: {
@@ -49,7 +49,7 @@ export const dark = {
       100: "#ededec",
     },
   },
-} as const
+}
 
 export const light = {
   type: "light",
@@ -102,4 +102,4 @@ export const light = {
       100: "#1b1b18",
     },
   },
-} as const
+}

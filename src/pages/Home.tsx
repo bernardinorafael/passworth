@@ -1,10 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import * as Dialog from "@radix-ui/react-dialog"
 import * as Icon from "phosphor-react"
 import * as React from "react"
-import * as Dialog from "@radix-ui/react-dialog"
-import { Controller, useForm } from "react-hook-form"
+import { Controller, FormProvider, useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
 import { z } from "zod"
+import NewPasswordDialog from "../components/NewPasswordDialog"
 import Switch from "../components/Switch"
 import usePasswordContext from "../context/PasswordContext"
 import {
@@ -12,15 +13,15 @@ import {
   GeneratePasswordButton,
   TypeCharacterContainer,
 } from "../css/pages/Home"
-import NewPasswordDialog from "../components/NewPasswordDialog"
 
 const newPasswordValidationSchema = z.object({
-  length: z.number(),
-  description: z.string().min(1, "campo obrigatório."),
+  password: z.string(),
+  passwordLength: z.number(),
   hasNumber: z.boolean().nullable(),
   hasSymbol: z.boolean().nullable(),
   hasUppercase: z.boolean().nullable(),
   hasLowercase: z.boolean().nullable(),
+  description: z.string().min(1, "campo obrigatório."),
 })
 
 type NewPasswordFormProps = z.infer<typeof newPasswordValidationSchema>
@@ -31,6 +32,8 @@ export default function HomeScreen() {
     resetPasswordLength,
     decrementPasswordLength,
     incrementPasswordLength,
+    generateNewRandomPassword,
+    createNewItemListPassword,
   } = usePasswordContext()
 
   const [isDialogResultOpen, setIsDialogResultOpen] = React.useState(false)
@@ -39,27 +42,29 @@ export default function HomeScreen() {
   const [isUppercaseActive, setIsUppercaseActive] = React.useState(true)
   const [isLowercaseActive, setIsLowercaseActive] = React.useState(true)
 
-  const {
-    reset,
-    control,
-    register,
-    handleSubmit,
-    formState: { isSubmitting, errors },
-  } = useForm<NewPasswordFormProps>({
+  const newPasswordForm = useForm<NewPasswordFormProps>({
     resolver: zodResolver(newPasswordValidationSchema),
     defaultValues: {
       hasNumber: true,
       hasLowercase: true,
       hasUppercase: true,
       hasSymbol: true,
-      length: 8,
     },
   })
+
+  const {
+    reset,
+    control,
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = newPasswordForm
 
   async function handleCreateNewPassword(data: NewPasswordFormProps) {
     await new Promise((resolve) => setTimeout(resolve, 500))
 
-    console.log(data)
+    createNewItemListPassword(data)
+    generateNewRandomPassword()
 
     resetPasswordLength()
     setIsSymbolActive(true)
@@ -119,11 +124,10 @@ export default function HomeScreen() {
             </div>
 
             <input
-              min={8}
               max={24}
               type="number"
               value={passwordLength}
-              {...register("length", { valueAsNumber: true })}
+              {...register("passwordLength", { valueAsNumber: true })}
             />
           </TypeCharacterContainer>
 
@@ -201,13 +205,15 @@ export default function HomeScreen() {
 
           <Dialog.Root open={isDialogResultOpen} onOpenChange={setIsDialogResultOpen}>
             <GeneratePasswordButton
-              disabled={isSubmitting || !!errors.description?.message}
               type="submit"
+              disabled={isSubmitting || !!errors.description?.message}
             >
               {isSubmitting ? "gerando senha" : "gerar senha"}
             </GeneratePasswordButton>
 
-            <NewPasswordDialog />
+            <FormProvider {...newPasswordForm}>
+              <NewPasswordDialog />
+            </FormProvider>
           </Dialog.Root>
         </form>
       </main>

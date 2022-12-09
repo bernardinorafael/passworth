@@ -1,17 +1,22 @@
 import * as Dialog from "@radix-ui/react-dialog"
-import * as React from "react"
 import * as Icon from "phosphor-react"
+import * as React from "react"
+import { useFormContext } from "react-hook-form"
 import usePasswordContext from "../../context/PasswordContext"
-import { CopyPasswordButton, DialogClose, DialogContent, Title } from "./styles"
-import { Link } from "react-router-dom"
+import { CopyPasswordButton, DialogClose, DialogContent, DialogTitle } from "./styles"
 
 export default function NewPasswordDialog() {
   const { password } = usePasswordContext()
+  const { register } = useFormContext()
   const [isCopyButtonActive, setIsCopyButtonActive] = React.useState(false)
 
   function handleCopyPassword() {
-    navigator.clipboard.writeText(password.join(""))
+    navigator.clipboard.writeText(password)
     setIsCopyButtonActive(true)
+
+    setTimeout(() => {
+      setIsCopyButtonActive(false)
+    }, 1000)
   }
 
   return (
@@ -22,19 +27,24 @@ export default function NewPasswordDialog() {
         </DialogClose>
 
         <div>
-          <Title>
+          <DialogTitle>
             sua senha foi gerada. <br /> clique abaixo para copiar.
-          </Title>
+          </DialogTitle>
 
           <div>
-            <input value={password} type="text" readOnly />
+            <input
+              value={password}
+              type="text"
+              {...register("password", {
+                value: password,
+              })}
+            />
+
             <CopyPasswordButton onClick={handleCopyPassword}>
               {!isCopyButtonActive ? "copiar senha" : "copiado"}
             </CopyPasswordButton>
           </div>
         </div>
-
-        <Link to="/">voltar para o início</Link>
       </DialogContent>
     </Dialog.Portal>
   )

@@ -4,10 +4,15 @@ import * as React from "react"
 import { Link, NavLink } from "react-router-dom"
 import { Container, ToggleThemeButton } from "./styles"
 
-export default function Header() {
+type HeaderProps = {
+  toggleTheme: () => void
+}
+
+export default function Header({ toggleTheme }: HeaderProps) {
   const [isToggleThemeActive, setIsToggleThemeActive] = React.useState(false)
 
   function handleToggleTheme() {
+    toggleTheme()
     setIsToggleThemeActive(!isToggleThemeActive)
   }
 

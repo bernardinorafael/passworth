@@ -1,4 +1,4 @@
-import { Close, Content, DialogTitle } from "@radix-ui/react-dialog"
+import { Close, Content, Title } from "@radix-ui/react-dialog"
 import styled, { keyframes } from "styled-components"
 
 const fadeAnimation = keyframes`
@@ -76,18 +76,9 @@ export const DialogContent = styled(Content)`
       }
     }
   }
-
-  a {
-    font-size: 1rem;
-    font-weight: 600;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 `
 
-export const Title = styled(DialogTitle)`
+export const DialogTitle = styled(Title)`
   text-align: center;
   font-size: 4rem;
 `
