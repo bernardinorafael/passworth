@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import * as React from "react"
 import { v4 as uuid } from "uuid"
 import { Password } from "../@types/password.d"
@@ -17,7 +18,16 @@ type PasswordContextType = {
   password: string
   passwordLength: number
   passwordList: Password[]
+  isSymbolActive: boolean
+  isNumberActive: boolean
+  isUppercaseActive: boolean
+  isLowercaseActive: boolean
+
   resetPasswordLength: () => void
+  handleToggleSymbolButton: () => void
+  handleToggleNumberButton: () => void
+  handleToggleUpperButton: () => void
+  handleToggleLowerButton: () => void
   decrementPasswordLength: () => void
   incrementPasswordLength: () => void
   generateNewRandomPassword: () => void
@@ -33,6 +43,10 @@ export function PasswordProvider({ children }: { children: React.ReactNode }) {
 
   const [password, setPassword] = React.useState("")
   const [passwordLength, setPasswordLength] = React.useState(8)
+  const [isSymbolActive, setIsSymbolActive] = React.useState(true)
+  const [isNumberActive, setIsNumberActive] = React.useState(true)
+  const [isUppercaseActive, setIsUppercaseActive] = React.useState(true)
+  const [isLowercaseActive, setIsLowercaseActive] = React.useState(true)
 
   const [passwordList, setPasswordList] = React.useState<Password[]>(() => {
     const storedPassword = localStorage.getItem("BERNARDINO:PASSWORD-LIST")
@@ -45,6 +59,22 @@ export function PasswordProvider({ children }: { children: React.ReactNode }) {
     const passwordListJSON = JSON.stringify(passwordList)
     localStorage.setItem("BERNARDINO:PASSWORD-LIST", passwordListJSON)
   }, [passwordList])
+
+  function handleToggleSymbolButton() {
+    setIsSymbolActive(!isSymbolActive)
+  }
+
+  function handleToggleNumberButton() {
+    setIsNumberActive(!isNumberActive)
+  }
+
+  function handleToggleUpperButton() {
+    setIsUppercaseActive(!isUppercaseActive)
+  }
+
+  function handleToggleLowerButton() {
+    setIsLowercaseActive(!isLowercaseActive)
+  }
 
   function updateDescription(id: string, description: string) {
     setPasswordList((passwordList) => {
@@ -69,21 +99,28 @@ export function PasswordProvider({ children }: { children: React.ReactNode }) {
   }
 
   function generateNewRandomPassword() {
-    let newPassword = ""
+    let password = ""
 
-    const randomFunction = [getLowercase, getNumber, getSymbol, getUppercase]
+    const randomFunction = []
 
-    for (let i = 0; i < passwordLength; i += randomFunction.length) {
-      randomFunction.forEach(() => {
-        const randomIndex =
-          randomFunction[Math.floor(Math.random() * randomFunction.length)]()
+    if (isUppercaseActive) randomFunction.push(getUppercase)
+    if (isLowercaseActive) randomFunction.push(getLowercase)
+    if (isSymbolActive) randomFunction.push(getSymbol)
+    if (isNumberActive) randomFunction.push(getNumber)
 
-        newPassword = newPassword += randomIndex
-      })
+    if (randomFunction.length >= 0) generateRandomCharacter(randomFunction)
+
+    function generateRandomCharacter(value: (() => void)[]) {
+      for (let i = 0; i < passwordLength; i++) {
+        const randomIndex = value[Math.floor(Math.random() * value.length)]()
+        password += randomIndex
+      }
+
+      return password
     }
 
-    setPassword(newPassword)
-    return newPassword
+    setPassword(password)
+    return password
   }
 
   function createNewItemListPassword(data: NewListPassword) {
@@ -124,12 +161,20 @@ export function PasswordProvider({ children }: { children: React.ReactNode }) {
       value={{
         password,
         passwordList,
+        isNumberActive,
+        isSymbolActive,
         passwordLength,
+        isLowercaseActive,
+        isUppercaseActive,
         updateDescription,
         deletePasswordItem,
         resetPasswordLength,
         decrementPasswordLength,
+        handleToggleLowerButton,
+        handleToggleUpperButton,
         incrementPasswordLength,
+        handleToggleNumberButton,
+        handleToggleSymbolButton,
         createNewItemListPassword,
         generateNewRandomPassword,
       }}

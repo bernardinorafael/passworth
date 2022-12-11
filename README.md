@@ -2,7 +2,9 @@
 
 ### Aplicação de um gerador de senhas, com um painel para administrar as senhas geradas.
 
-![Resultado final do projeto](public/preview.png)
+<h1 align="center">
+  <img src="/public/preview.png">
+</h1>
 
 # Features
 

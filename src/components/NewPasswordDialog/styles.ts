@@ -18,7 +18,7 @@ export const DialogClose = styled(Close)`
   top: 24px;
   right: 24px;
   line-height: 0;
-	color: ${({ theme }) => theme.COLORS.base[100]};
+  color: ${({ theme }) => theme.COLORS.base[100]};
   padding: 0.5rem;
   background-color: transparent;
   border: none;
@@ -66,7 +66,7 @@ export const DialogContent = styled(Content)`
         text-align: center;
         border: 1px solid ${({ theme }) => theme.COLORS.base[600]};
         outline: none;
-				color: ${({ theme }) => theme.COLORS.base[100]};
+        color: ${({ theme }) => theme.COLORS.base[100]};
         box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
           rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
         pointer-events: none;
@@ -77,12 +77,22 @@ export const DialogContent = styled(Content)`
         background-color: transparent;
       }
     }
+
+    span {
+      text-align: center;
+      margin-top: 2rem;
+      font-weight: 700;
+    }
   }
 `
 
 export const DialogTitle = styled(Title)`
   text-align: center;
   font-size: 4rem;
+
+	@media (max-width: 670px) {
+		font-size: 1.5rem;
+	}
 `
 
 export const CopyPasswordButton = styled.button`

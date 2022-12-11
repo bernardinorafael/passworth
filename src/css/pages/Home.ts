@@ -136,6 +136,10 @@ export const Container = styled.div`
           transition: background-color 0.2s;
         }
       }
+
+      @media (max-width: 670px) {
+        font-size: 2rem;
+      }
     }
 
     form {
@@ -158,6 +162,19 @@ export const TypeCharacterContainer = styled.div<TypeCharacterContainerProps>`
   justify-content: space-between;
   padding: 0.875rem 0;
   width: 100%;
+
+  &:first-child {
+    @media (max-width: 670px) {
+      align-self: flex-start;
+      flex-direction: column;
+      gap: 1rem;
+
+      input {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+  }
 
   span {
     font-size: 0.875rem;

@@ -1,14 +1,14 @@
 import * as AlertDialog from "@radix-ui/react-alert-dialog"
 import * as Popover from "@radix-ui/react-popover"
-import { formatDistanceToNow } from "date-fns"
+import { format, formatDistanceToNow } from "date-fns"
 import ptBR from "date-fns/locale/pt-BR"
 import {
-  Eye,
-  Copy,
-  EyeClosed,
-  TrashSimple,
-  PencilSimple,
   CheckSquareOffset,
+  Copy,
+  Eye,
+  EyeClosed,
+  PencilSimple,
+  TrashSimple,
 } from "phosphor-react"
 import * as React from "react"
 import usePasswordContext from "../../context/PasswordContext"
@@ -30,6 +30,19 @@ export default function PasswordListItem(props: PasswordListItemProps) {
   const [isPopoverEditOpen, setIsPopoverEditOpen] = React.useState(false)
   const [isCopyButtonActive, setIsCopyButtonActive] = React.useState(false)
 
+  const createdDateFormatted = format(
+    new Date(props.createdAt),
+    "d 'de' LLLL 'às' HH:mm",
+    {
+      locale: ptBR,
+    }
+  )
+
+  const createdAt = formatDistanceToNow(new Date(props.createdAt!), {
+    addSuffix: true,
+    locale: ptBR,
+  })
+
   function handleClosePopoverEditDescription() {
     setIsPopoverEditOpen(!isPopoverEditOpen)
   }
@@ -38,9 +51,9 @@ export default function PasswordListItem(props: PasswordListItemProps) {
     navigator.clipboard.writeText(props.password)
     setIsCopyButtonActive(true)
 
-    setTimeout(() => {
-      setIsCopyButtonActive(false)
-    }, 1500)
+    // setTimeout(() => {
+    //   setIsCopyButtonActive(false)
+    // }, 1500)
   }
 
   function handleToggleRevealedPassword() {
@@ -56,10 +69,9 @@ export default function PasswordListItem(props: PasswordListItemProps) {
       </PasswordItem>
 
       <td>
-        {formatDistanceToNow(new Date(props.createdAt!), {
-          addSuffix: true,
-          locale: ptBR,
-        })}
+        <time title={createdDateFormatted} dateTime={props.createdAt.toString()}>
+          {createdAt}
+        </time>
       </td>
 
       <td>

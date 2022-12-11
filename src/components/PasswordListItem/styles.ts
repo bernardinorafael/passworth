@@ -84,8 +84,11 @@ export const PasswordItem = styled.td`
   font-size: 1rem;
   font-weight: 700;
   max-width: 25ch;
+  overflow: hidden;
   padding: 0.5rem 2rem;
+  text-overflow: ellipsis;
   text-transform: lowercase;
+  white-space: nowrap;
   width: 300px;
 `
 

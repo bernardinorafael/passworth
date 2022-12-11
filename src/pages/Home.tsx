@@ -30,17 +30,21 @@ type NewPasswordFormProps = z.infer<typeof newPasswordValidationSchema>
 export default function HomeScreen() {
   const {
     passwordLength,
+    isNumberActive,
+    isSymbolActive,
+    isUppercaseActive,
+    isLowercaseActive,
     resetPasswordLength,
+    handleToggleLowerButton,
+    handleToggleUpperButton,
     decrementPasswordLength,
     incrementPasswordLength,
+    handleToggleNumberButton,
+    handleToggleSymbolButton,
     createNewItemListPassword,
   } = usePasswordContext()
 
   const [isDialogResultOpen, setIsDialogResultOpen] = React.useState(false)
-  const [isSymbolActive, setIsSymbolActive] = React.useState(true)
-  const [isNumberActive, setIsNumberActive] = React.useState(true)
-  const [isUppercaseActive, setIsUppercaseActive] = React.useState(true)
-  const [isLowercaseActive, setIsLowercaseActive] = React.useState(true)
 
   const newPasswordForm = useForm<NewPasswordFormProps>({
     resolver: zodResolver(newPasswordValidationSchema),
@@ -66,29 +70,13 @@ export default function HomeScreen() {
     createNewItemListPassword(data)
 
     resetPasswordLength()
-    setIsSymbolActive(true)
-    setIsNumberActive(true)
-    setIsUppercaseActive(true)
-    setIsLowercaseActive(true)
+    handleToggleLowerButton()
+    handleToggleNumberButton()
+    handleToggleSymbolButton()
+    handleToggleUpperButton()
     setIsDialogResultOpen(true)
 
     reset()
-  }
-
-  function handleActiveSymbolButton() {
-    setIsSymbolActive(!isSymbolActive)
-  }
-
-  function handleActiveNumberButton() {
-    setIsNumberActive(!isNumberActive)
-  }
-
-  function handleActiveUppercaseButton() {
-    setIsUppercaseActive(!isUppercaseActive)
-  }
-
-  function handleActiveLowercaseButton() {
-    setIsLowercaseActive(!isLowercaseActive)
   }
 
   return (
@@ -141,7 +129,7 @@ export default function HomeScreen() {
                     checked={isSymbolActive}
                     defaultChecked={field.value}
                     onCheckedChange={field.onChange}
-                    onClick={handleActiveSymbolButton}
+                    onClick={handleToggleSymbolButton}
                   />
                 )
               }}
@@ -159,7 +147,7 @@ export default function HomeScreen() {
                     checked={isNumberActive}
                     defaultChecked={field.value}
                     onCheckedChange={field.onChange}
-                    onClick={handleActiveNumberButton}
+                    onClick={handleToggleNumberButton}
                   />
                 )
               }}
@@ -177,7 +165,7 @@ export default function HomeScreen() {
                     checked={isUppercaseActive}
                     defaultChecked={field.value}
                     onCheckedChange={field.onChange}
-                    onClick={handleActiveUppercaseButton}
+                    onClick={handleToggleUpperButton}
                   />
                 )
               }}
@@ -195,7 +183,7 @@ export default function HomeScreen() {
                     checked={isLowercaseActive}
                     defaultChecked={field.value}
                     onCheckedChange={field.onChange}
-                    onClick={handleActiveLowercaseButton}
+                    onClick={handleToggleLowerButton}
                   />
                 )
               }}

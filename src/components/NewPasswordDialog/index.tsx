@@ -44,6 +44,8 @@ export default function NewPasswordDialog() {
               {!isCopyButtonActive ? "copiar senha" : "copiado"}
             </CopyPasswordButton>
           </div>
+
+          <span>pressione esc para sair</span>
         </div>
       </DialogContent>
     </Dialog.Portal>

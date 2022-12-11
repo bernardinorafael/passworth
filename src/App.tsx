@@ -18,17 +18,17 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
+    <RandomCharProvider>
+      <PasswordProvider>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
 
-      <Routers>
-        <RandomCharProvider>
-          <PasswordProvider>
+          <Routers>
             <Header toggleTheme={toggleTheme} />
             <Router />
-          </PasswordProvider>
-        </RandomCharProvider>
-      </Routers>
-    </ThemeProvider>
+          </Routers>
+        </ThemeProvider>
+      </PasswordProvider>
+    </RandomCharProvider>
   )
 }
