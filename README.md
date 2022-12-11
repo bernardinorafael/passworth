@@ -1,18 +1,46 @@
-# Layout/Home
-[x] - Header
-[x] - Input para com o length da da senha
-[x] - Input para uma descrição da senha
-[x] - 4 switches { abc, ABC, !@# e 123 }
-[x] - Input com o resultado gerado
+# Gerador de senhas.
 
-# Layout/History
-[] - CRUD com as senhas geradas
+### Aplicação de um gerador de senhas, com um painel para administrar as senhas geradas.
 
-# Regras
-[] - Deve ser possível gerar uma senha aleatória
-[x] - Deve ser possível escolher o length da senha
-[x] - Ao clicar em Gerar senha, o input precisa receber um reset
-[] - Ao gerar a senha, automaticamente ela precisa ser listada na página History
-[] - Deve ser possível editar a descrição da senha
-[] - A senha depois de gerada não pode ser alterada
-[] - Os dados das senhas serão armazenados em localStorage
+![Resultado final do projeto](public/preview.png)
+
+# Features
+
+- ☑️ Gerar uma senha randômica entre 8 e 24 caracteres.
+- ☑️ Dashboard com as senhas geradas, podendo realizar alteração, exclusão e visualização.
+
+```bash
+# Para clonar este repositório:
+$ git clone https://github.com/bernardinorafael/password-generator.git
+```
+
+```bash
+# Acesse a pasta do projeto no seu terminal
+$ cd password-generator
+```
+
+```bash
+# Instale as dependências
+$ npm i
+```
+
+```bash
+# Execute a aplicação em modo de desenvolvimento
+$ npm run dev
+```
+
+# Tecnologias
+
+Projeto criado através do Vite, utilizando React e TypeScript
+
+Algumas das tecnologias e libs utilizadas...
+
+- [Date-fns]
+- [Phosphor]
+- [Radix-UI]
+- [React-Hook-Form]
+- [React]
+- [Styled Components]
+- [TypeScript]
+- [uuid]
+- [Zod]
