@@ -24,12 +24,12 @@ type PasswordContextType = {
   isLowercaseActive: boolean
 
   resetPasswordLength: () => void
-  handleToggleSymbolButton: () => void
-  handleToggleNumberButton: () => void
   handleToggleUpperButton: () => void
   handleToggleLowerButton: () => void
   decrementPasswordLength: () => void
   incrementPasswordLength: () => void
+  handleToggleSymbolButton: () => void
+  handleToggleNumberButton: () => void
   generateNewRandomPassword: () => void
   deletePasswordItem: (id: string) => void
   createNewItemListPassword: (data: NewListPassword) => void
@@ -108,7 +108,7 @@ export function PasswordProvider({ children }: { children: React.ReactNode }) {
     if (isSymbolActive) randomFunction.push(getSymbol)
     if (isNumberActive) randomFunction.push(getNumber)
 
-    if (randomFunction.length >= 0) generateRandomCharacter(randomFunction)
+    if (randomFunction.length <= 0) generateRandomCharacter(randomFunction)
 
     function generateRandomCharacter(value: (() => void)[]) {
       for (let i = 0; i < passwordLength; i++) {

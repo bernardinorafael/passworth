@@ -1,10 +1,10 @@
 import * as React from "react"
 
 type RandomCharContextProps = {
-  getLowercase: () => string
-  getUppercase: () => string
   getSymbol: () => string
   getNumber: () => string
+  getLowercase: () => string
+  getUppercase: () => string
 }
 
 export const RandomCharContext = React.createContext<RandomCharContextProps | null>(null)
