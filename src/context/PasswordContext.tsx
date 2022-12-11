@@ -14,28 +14,62 @@ type NewListPassword = {
 }
 
 type PasswordContextType = {
-  passwordLength: number
   password: string
+  passwordLength: number
   passwordList: Password[]
   resetPasswordLength: () => void
   decrementPasswordLength: () => void
   incrementPasswordLength: () => void
   generateNewRandomPassword: () => void
+  deletePasswordItem: (id: string) => void
   createNewItemListPassword: (data: NewListPassword) => void
+  updateDescription: (id: string, description: string) => void
 }
 
 export const PasswordContext = React.createContext<PasswordContextType | null>(null)
 
 export function PasswordProvider({ children }: { children: React.ReactNode }) {
   const { getLowercase, getNumber, getSymbol, getUppercase } = useRandomCharContext()
+
   const [password, setPassword] = React.useState("")
-  const [passwordList, setPasswordList] = React.useState<Password[]>([])
   const [passwordLength, setPasswordLength] = React.useState(8)
 
-  function generateNewRandomPassword() {
-    setPassword("")
+  const [passwordList, setPasswordList] = React.useState<Password[]>(() => {
+    const storedPassword = localStorage.getItem("BERNARDINO:PASSWORD-LIST")
 
-    let newPassword = password
+    if (storedPassword) return JSON.parse(storedPassword)
+    else return []
+  })
+
+  React.useEffect(() => {
+    const passwordListJSON = JSON.stringify(passwordList)
+    localStorage.setItem("BERNARDINO:PASSWORD-LIST", passwordListJSON)
+  }, [passwordList])
+
+  function updateDescription(id: string, description: string) {
+    setPasswordList((passwordList) => {
+      const newPasswordList = passwordList.map((password) => {
+        if (password.id === id) {
+          return { ...password, description, createdAt: new Date() }
+        } else return password
+      })
+
+      return newPasswordList.sort((a, b) => {
+        return new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+      })
+    })
+  }
+
+  function deletePasswordItem(id: string) {
+    const newPasswordList = passwordList.filter((password) => {
+      return password.id !== id
+    })
+
+    setPasswordList(newPasswordList)
+  }
+
+  function generateNewRandomPassword() {
+    let newPassword = ""
 
     const randomFunction = [getLowercase, getNumber, getSymbol, getUppercase]
 
@@ -44,7 +78,7 @@ export function PasswordProvider({ children }: { children: React.ReactNode }) {
         const randomIndex =
           randomFunction[Math.floor(Math.random() * randomFunction.length)]()
 
-        newPassword += randomIndex
+        newPassword = newPassword += randomIndex
       })
     }
 
@@ -53,21 +87,21 @@ export function PasswordProvider({ children }: { children: React.ReactNode }) {
   }
 
   function createNewItemListPassword(data: NewListPassword) {
-    const newPassword = generateNewRandomPassword()
+    const password = generateNewRandomPassword()
 
     setPasswordList((state) => [
-      ...state,
       {
         id: uuid(),
+        passwordLength,
         createdAt: new Date(),
-        password: newPassword,
+        password,
         hasNumber: data.hasNumber,
         hasSymbol: data.hasSymbol,
         description: data.description,
-        hasUppercase: data.hasUppercase,
         hasLowercase: data.hasLowercase,
-        passwordLength,
+        hasUppercase: data.hasUppercase,
       },
+      ...state,
     ])
   }
 
@@ -91,6 +125,8 @@ export function PasswordProvider({ children }: { children: React.ReactNode }) {
         password,
         passwordList,
         passwordLength,
+        updateDescription,
+        deletePasswordItem,
         resetPasswordLength,
         decrementPasswordLength,
         incrementPasswordLength,

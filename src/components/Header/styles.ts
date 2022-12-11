@@ -14,22 +14,6 @@ export const Container = styled.div`
     padding: 0 1.5rem;
     width: 100%;
 
-    > a {
-      font-size: 2rem;
-      font-weight: 800;
-      line-height: 0;
-      user-select: none;
-
-      &:focus {
-        box-shadow: none;
-      }
-
-      span {
-        color: ${({ theme }) => theme.COLORS.cyan[500]};
-        font-size: 2rem;
-      }
-    }
-
     nav {
       align-items: center;
       display: flex;
@@ -45,6 +29,7 @@ export const Container = styled.div`
         justify-content: center;
         padding: 0.5rem 0.875rem;
         user-select: none;
+        color: ${({ theme }) => theme.COLORS.base[100]};
 
         &:hover {
           background-color: ${({ theme }) => theme.COLORS.base[1000]};
@@ -52,14 +37,15 @@ export const Container = styled.div`
         }
 
         &.active {
-          background-color: ${({ theme }) => theme.COLORS.cyan[100]};
+          color: ${({ theme }) => theme.COLORS.base[100]};
+          background-color: ${({ theme }) => theme.COLORS.cyan[300]};
         }
       }
     }
 
     > div {
       display: flex;
-      gap: .5rem;
+      gap: 0.5rem;
       align-items: center;
 
       button[type="button"] {
@@ -72,10 +58,15 @@ export const Container = styled.div`
         justify-content: center;
         padding: 0.5rem 0.875rem;
         border: none;
-				cursor: pointer;
+        cursor: pointer;
         user-select: none;
 
-        &:hover {
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        &:not(:disabled):hover {
           background-color: ${({ theme }) => theme.COLORS.base[100]};
           color: ${({ theme }) => theme.COLORS.base[900]};
           transition: background-color 0.3s, color 0.3s;
@@ -100,5 +91,9 @@ export const ToggleThemeButton = styled.button`
   &:hover {
     background-color: ${({ theme }) => theme.COLORS.base[1000]};
     transition: background-color 0.2s;
+  }
+
+  svg {
+    color: ${({ theme }) => theme.COLORS.base[100]};
   }
 `

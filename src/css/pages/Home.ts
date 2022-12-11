@@ -108,6 +108,7 @@ export const CopyPasswordButton = styled.button`
 `
 
 export const Container = styled.div`
+  overflow: hidden;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -118,6 +119,7 @@ export const Container = styled.div`
   width: 100%;
 
   main {
+    --animate-duration: 0.3s;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -184,13 +186,21 @@ export const TypeCharacterContainer = styled.div<TypeCharacterContainerProps>`
       padding: 0 0.5rem;
 
       &:focus {
-        box-shadow: 0 0 0 1px ${({ theme }) => theme.COLORS.base[400]};
+        box-shadow: none;
+
+        svg {
+          color: ${({ theme }) => theme.COLORS.cyan[300]};
+        }
       }
 
       &:active {
         svg {
           transform: scale(1.2);
         }
+      }
+
+      svg {
+        color: ${({ theme }) => theme.COLORS.base[100]};
       }
     }
   }
@@ -203,6 +213,7 @@ export const TypeCharacterContainer = styled.div<TypeCharacterContainerProps>`
     height: 2rem;
     max-width: 300px;
     padding: 0 0.5rem;
+    color: ${({ theme }) => theme.COLORS.base[100]};
 
     &::placeholder {
       color: ${({ theme }) => theme.COLORS.red[100]};

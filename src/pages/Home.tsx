@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as Dialog from "@radix-ui/react-dialog"
-import * as Icon from "phosphor-react"
+import "animate.css"
+import { Minus, Plus } from "phosphor-react"
 import * as React from "react"
 import { Controller, FormProvider, useForm } from "react-hook-form"
 import { Link } from "react-router-dom"
@@ -15,9 +16,9 @@ import {
 } from "../css/pages/Home"
 
 const newPasswordValidationSchema = z.object({
-  password: z.string(),
   passwordLength: z.number(),
   hasNumber: z.boolean().nullable(),
+  password: z.string(),
   hasSymbol: z.boolean().nullable(),
   hasUppercase: z.boolean().nullable(),
   hasLowercase: z.boolean().nullable(),
@@ -32,7 +33,6 @@ export default function HomeScreen() {
     resetPasswordLength,
     decrementPasswordLength,
     incrementPasswordLength,
-    generateNewRandomPassword,
     createNewItemListPassword,
   } = usePasswordContext()
 
@@ -46,9 +46,9 @@ export default function HomeScreen() {
     resolver: zodResolver(newPasswordValidationSchema),
     defaultValues: {
       hasNumber: true,
+      hasSymbol: true,
       hasLowercase: true,
       hasUppercase: true,
-      hasSymbol: true,
     },
   })
 
@@ -64,7 +64,6 @@ export default function HomeScreen() {
     await new Promise((resolve) => setTimeout(resolve, 500))
 
     createNewItemListPassword(data)
-    generateNewRandomPassword()
 
     resetPasswordLength()
     setIsSymbolActive(true)
@@ -94,7 +93,7 @@ export default function HomeScreen() {
 
   return (
     <Container>
-      <main>
+      <main className=" animate__animated animate__fadeIn">
         <h1>
           gere uma senha segura. <br /> administre no painel{" "}
           <Link to="/history">Histórico</Link>.
@@ -116,10 +115,10 @@ export default function HomeScreen() {
 
             <div>
               <button type="button" onClick={decrementPasswordLength}>
-                <Icon.Minus weight="bold" size={20} />
+                <Minus weight="bold" size={20} />
               </button>
               <button type="button" onClick={incrementPasswordLength}>
-                <Icon.Plus weight="bold" size={20} />
+                <Plus weight="bold" size={20} />
               </button>
             </div>
 

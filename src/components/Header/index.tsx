@@ -1,7 +1,7 @@
 import "animate.css"
 import * as Icon from "phosphor-react"
 import * as React from "react"
-import { Link, NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { Container, ToggleThemeButton } from "./styles"
 
 type HeaderProps = {
@@ -19,10 +19,6 @@ export default function Header({ toggleTheme }: HeaderProps) {
   return (
     <Container>
       <header>
-        <Link to="/">
-          word<span>.</span>
-        </Link>
-
         <nav>
           <NavLink end to="/">
             início
@@ -31,7 +27,9 @@ export default function Header({ toggleTheme }: HeaderProps) {
         </nav>
 
         <div>
-          <button type="button">entrar</button>
+          <button disabled type="button">
+            entrar
+          </button>
 
           <ToggleThemeButton onClick={handleToggleTheme}>
             {isToggleThemeActive ? (
