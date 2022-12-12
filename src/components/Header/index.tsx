@@ -27,7 +27,7 @@ export default function Header({ toggleTheme }: HeaderProps) {
         </nav>
 
         <div>
-          <Link to="login">entrar</Link>
+          {/* <Link to="login">entrar</Link> */}
 
           <ToggleThemeButton onClick={handleToggleTheme}>
             {isToggleThemeActive ? (
