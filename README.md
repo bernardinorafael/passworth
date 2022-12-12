@@ -13,7 +13,7 @@
 
 ```bash
 # Para clonar este repositório:
-$ git clone https://github.com/bernardinorafael/password-generator.git
+$ git clone https://github.com/bernardinorafael/passworth.git
 ```
 
 ```bash
