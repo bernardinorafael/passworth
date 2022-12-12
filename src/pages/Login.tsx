@@ -6,7 +6,7 @@ export default function Login() {
     <Container>
       <h1>login.</h1>
       <span>
-        não possui uma conta? <Link to="/">sign up</Link>
+        não possui uma conta? <Link to="/">sign up.</Link>
       </span>
 
       <form className=" animate__animated animate__fadeIn">

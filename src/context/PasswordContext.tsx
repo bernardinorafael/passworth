@@ -5,10 +5,10 @@ import useRandomCharContext from "./RandomCharContext"
 
 type NewListPassword = {
   passwordLength: number
-  hasNumber: boolean | null
-  hasSymbol: boolean | null
-  hasLowercase: boolean | null
-  hasUppercase: boolean | null
+  hasNumber: boolean
+  hasSymbol: boolean
+  hasLowercase: boolean
+  hasUppercase: boolean
   description: string
   password: string
 }
@@ -173,7 +173,7 @@ export function PasswordProvider({ children }: { children: React.ReactNode }) {
         isLowercaseActive,
         isUppercaseActive,
         updateDescription,
-				resetSwitchesState,
+        resetSwitchesState,
         deletePasswordItem,
         resetPasswordLength,
         decrementPasswordLength,

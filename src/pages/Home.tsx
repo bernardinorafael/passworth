@@ -17,11 +17,11 @@ import {
 
 const newPasswordValidationSchema = z.object({
   passwordLength: z.number(),
-  hasNumber: z.boolean().nullable(),
+  hasNumber: z.boolean(),
   password: z.string(),
-  hasSymbol: z.boolean().nullable(),
-  hasUppercase: z.boolean().nullable(),
-  hasLowercase: z.boolean().nullable(),
+  hasSymbol: z.boolean(),
+  hasUppercase: z.boolean(),
+  hasLowercase: z.boolean(),
   description: z.string().min(1, "campo obrigatório."),
 })
 
@@ -121,6 +121,7 @@ export default function HomeScreen() {
             <Controller
               control={control}
               name="hasSymbol"
+              rules={{ required: true }}
               render={({ field }) => {
                 return (
                   <Switch
@@ -139,6 +140,7 @@ export default function HomeScreen() {
             <Controller
               control={control}
               name="hasNumber"
+              rules={{ required: true }}
               render={({ field }) => {
                 return (
                   <Switch
@@ -157,6 +159,7 @@ export default function HomeScreen() {
             <Controller
               control={control}
               name="hasUppercase"
+              rules={{ required: true }}
               render={({ field }) => {
                 return (
                   <Switch
@@ -175,6 +178,7 @@ export default function HomeScreen() {
             <Controller
               control={control}
               name="hasLowercase"
+              rules={{ required: true }}
               render={({ field }) => {
                 return (
                   <Switch

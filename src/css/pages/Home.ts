@@ -233,7 +233,7 @@ export const TypeCharacterContainer = styled.div<TypeCharacterContainerProps>`
     color: ${({ theme }) => theme.COLORS.base[100]};
 
     &::placeholder {
-      color: ${({ theme }) => theme.COLORS.red[100]};
+      color: ${({ theme }) => theme.COLORS.red[50]};
       font-weight: 700;
     }
 
@@ -257,7 +257,7 @@ export const TypeCharacterContainer = styled.div<TypeCharacterContainerProps>`
     error &&
     css`
       input {
-        box-shadow: 0 0 0 2px ${theme.COLORS.red[100]} !important;
+        box-shadow: 0 0 0 2px ${theme.COLORS.red[50]} !important;
         border: none;
       }
     `}
