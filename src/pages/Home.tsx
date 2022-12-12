@@ -38,6 +38,7 @@ export default function HomeScreen() {
     handleToggleLowerButton,
     handleToggleUpperButton,
     decrementPasswordLength,
+    resetSwitchesState,
     incrementPasswordLength,
     handleToggleNumberButton,
     handleToggleSymbolButton,
@@ -69,11 +70,8 @@ export default function HomeScreen() {
 
     createNewItemListPassword(data)
 
+    resetSwitchesState()
     resetPasswordLength()
-    handleToggleLowerButton()
-    handleToggleNumberButton()
-    handleToggleSymbolButton()
-    handleToggleUpperButton()
     setIsDialogResultOpen(true)
 
     reset()
@@ -84,7 +82,7 @@ export default function HomeScreen() {
       <main className=" animate__animated animate__fadeIn">
         <h1>
           gere uma senha segura. <br /> administre no painel{" "}
-          <Link to="/history">Histórico</Link>.
+          <Link to="/history">histórico</Link>.
         </h1>
 
         <form onSubmit={handleSubmit(handleCreateNewPassword)}>

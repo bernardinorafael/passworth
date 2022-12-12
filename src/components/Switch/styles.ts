@@ -15,7 +15,7 @@ export const SwitchRoot = styled(Root)`
   }
 
   &[data-state="checked"] {
-    background-color: ${({ theme }) => theme.COLORS.green[300]};
+    background-color: ${({ theme }) => theme.COLORS.cyan[500]};
   }
 `
 

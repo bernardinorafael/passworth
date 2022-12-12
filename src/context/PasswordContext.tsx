@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import * as React from "react"
 import { v4 as uuid } from "uuid"
 import { Password } from "../@types/password.d"
@@ -22,7 +21,7 @@ type PasswordContextType = {
   isNumberActive: boolean
   isUppercaseActive: boolean
   isLowercaseActive: boolean
-
+  resetSwitchesState: () => void
   resetPasswordLength: () => void
   handleToggleUpperButton: () => void
   handleToggleLowerButton: () => void
@@ -59,6 +58,13 @@ export function PasswordProvider({ children }: { children: React.ReactNode }) {
     const passwordListJSON = JSON.stringify(passwordList)
     localStorage.setItem("BERNARDINO:PASSWORD-LIST", passwordListJSON)
   }, [passwordList])
+
+  function resetSwitchesState() {
+    setIsSymbolActive(true)
+    setIsNumberActive(true)
+    setIsUppercaseActive(true)
+    setIsLowercaseActive(true)
+  }
 
   function handleToggleSymbolButton() {
     setIsSymbolActive(!isSymbolActive)
@@ -167,6 +173,7 @@ export function PasswordProvider({ children }: { children: React.ReactNode }) {
         isLowercaseActive,
         isUppercaseActive,
         updateDescription,
+				resetSwitchesState,
         deletePasswordItem,
         resetPasswordLength,
         decrementPasswordLength,

@@ -264,10 +264,10 @@ export const TypeCharacterContainer = styled.div<TypeCharacterContainerProps>`
 `
 
 export const GeneratePasswordButton = styled.button`
-  background-color: ${({ theme }) => theme.COLORS.base[100]};
+  background-color: ${({ theme }) => theme.COLORS.cyan[300]};
   border-radius: 8px;
-  border: 1px solid transparent;
-  color: ${({ theme }) => theme.COLORS.base[900]};
+  border: none;
+  color: ${({ theme }) => theme.COLORS.base[100]};
   cursor: pointer;
   font-size: 1.25rem;
   font-weight: 700;
@@ -282,9 +282,7 @@ export const GeneratePasswordButton = styled.button`
   }
 
   &:not(:disabled):hover {
-    background-color: ${({ theme }) => theme.COLORS.base[1100]};
-    border: 1px solid ${({ theme }) => theme.COLORS.base[300]};
-    color: ${({ theme }) => theme.COLORS.base[100]};
-    transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+    background-color: ${({ theme }) => theme.COLORS.cyan[500]};
+    transition: background-color 0.2s;
   }
 `

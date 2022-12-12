@@ -7,6 +7,7 @@ import { GlobalStyle } from "./css/global-styled"
 import { dark, light } from "./css/themes/default-theme"
 import usePersistLocalStorage from "./hooks/usePersistLocalStorage"
 import Router from "./routes"
+
 export default function App() {
   const [theme, setTheme] = usePersistLocalStorage<DefaultTheme>(
     "@BERNARDINO:THEME",
@@ -24,7 +25,7 @@ export default function App() {
           <GlobalStyle />
 
           <Routers>
-            <Header toggleTheme={toggleTheme} />
+            <Header toggleTheme={toggleTheme}/>
             <Router />
           </Routers>
         </ThemeProvider>

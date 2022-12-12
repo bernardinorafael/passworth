@@ -90,9 +90,9 @@ export const DialogTitle = styled(Title)`
   text-align: center;
   font-size: 4rem;
 
-	@media (max-width: 670px) {
-		font-size: 1.5rem;
-	}
+  @media (max-width: 670px) {
+    font-size: 1.5rem;
+  }
 `
 
 export const CopyPasswordButton = styled.button`
@@ -107,14 +107,12 @@ export const CopyPasswordButton = styled.button`
   gap: 0.5rem;
   border: none;
   outline: none;
-  background-color: ${({ theme }) => theme.COLORS.base[100]};
+  background-color: ${({ theme }) => theme.COLORS.cyan[300]};
   border-radius: 8px;
-  color: ${({ theme }) => theme.COLORS.base[1100]};
+  color: ${({ theme }) => theme.COLORS.base[100]};
 
   &:hover {
-    background-color: ${({ theme }) => theme.COLORS.base[1100]};
-    border: 1px solid ${({ theme }) => theme.COLORS.base[300]};
-    color: ${({ theme }) => theme.COLORS.base[100]};
-    transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+    background-color: ${({ theme }) => theme.COLORS.cyan[500]};
+    transition: background-color 0.2s;
   }
 `

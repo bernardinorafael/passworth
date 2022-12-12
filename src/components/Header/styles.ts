@@ -48,17 +48,17 @@ export const Container = styled.div`
       gap: 0.5rem;
       align-items: center;
 
-      button[type="button"] {
+      a {
         align-items: center;
         background-color: ${({ theme }) => theme.COLORS.base[1200]};
-        color: ${({ theme }) => theme.COLORS.base[100]};
         border-radius: 6px;
+        border: none;
+        color: ${({ theme }) => theme.COLORS.base[100]};
+        cursor: pointer;
         display: flex;
         font-weight: 700;
         justify-content: center;
         padding: 0.5rem 0.875rem;
-        border: none;
-        cursor: pointer;
         user-select: none;
 
         &:disabled {
