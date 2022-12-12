@@ -14,6 +14,7 @@ import {
 import * as React from "react"
 import usePasswordContext from "../../context/PasswordContext"
 import AlertDialogDeleteItem from "../AlertDialogDeleteItem"
+import PopoverCopiedContent from "../PopoverCopiedContent"
 import PopoverEditDescPassword from "../PopoverEditDescPassword"
 import TooltipInformation from "../TooltipInformation"
 import { ButtonAction, PasswordItem } from "./styles"
@@ -31,6 +32,7 @@ export default function PasswordListItem(props: PasswordListItemProps) {
   const [isPasswordRevealedButton, setIsPasswordRevealedButton] = React.useState(false)
   const [isPopoverEditOpen, setIsPopoverEditOpen] = React.useState(false)
   const [isCopyButtonActive, setIsCopyButtonActive] = React.useState(false)
+  const [isCopyPopoverActive, setIsCopyPopoverActive] = React.useState(false)
 
   const createdDateFormatted = format(
     new Date(props.createdAt),
@@ -52,6 +54,10 @@ export default function PasswordListItem(props: PasswordListItemProps) {
   function handleCopyPassword() {
     navigator.clipboard.writeText(props.password)
     setIsCopyButtonActive(true)
+
+    setTimeout(() => {
+      setIsCopyPopoverActive(false)
+    }, 800)
   }
 
   function handleToggleRevealedPassword() {
@@ -78,13 +84,19 @@ export default function PasswordListItem(props: PasswordListItemProps) {
         </Tooltip.Root>
 
         <td>
-          <ButtonAction onClick={handleCopyPassword}>
-            {!isCopyButtonActive ? (
-              <Copy size={18} weight="bold" />
-            ) : (
-              <CheckSquareOffset size={18} weight="bold" />
-            )}
-          </ButtonAction>
+          <Popover.Root open={isCopyPopoverActive} onOpenChange={setIsCopyPopoverActive}>
+            <Popover.Trigger asChild>
+              <ButtonAction onClick={handleCopyPassword}>
+                {!isCopyButtonActive ? (
+                  <Copy size={18} weight="bold" />
+                ) : (
+                  <CheckSquareOffset size={18} weight="bold" />
+                )}
+              </ButtonAction>
+            </Popover.Trigger>
+
+            <PopoverCopiedContent />
+          </Popover.Root>
 
           <ButtonAction onClick={handleToggleRevealedPassword}>
             {isPasswordRevealedButton ? (
