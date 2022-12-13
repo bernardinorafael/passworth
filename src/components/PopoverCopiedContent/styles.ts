@@ -13,14 +13,14 @@ const slideLeftAnimation = keyframes`
 `
 
 export const PopoverContent = styled(Content)`
-  position: relative;
-  z-index: 101;
   animation: ${slideLeftAnimation} 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   background-color: ${({ theme }) => theme.COLORS.base[600]};
   border-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   padding: 0.5rem;
+  position: relative;
   transform-origin: var(--radix-popover-content-transform-origin);
+  z-index: 101;
 
   span {
     font-weight: 600;

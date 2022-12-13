@@ -4,12 +4,12 @@ import * as Tooltip from "@radix-ui/react-tooltip"
 import { format, formatDistanceToNow } from "date-fns"
 import ptBR from "date-fns/locale/pt-BR"
 import {
-  CheckSquareOffset,
-  Copy,
   Eye,
-  EyeClosed,
-  PencilSimple,
+  Copy,
+  EyeSlash,
   TrashSimple,
+  PencilSimple,
+  CheckSquareOffset,
 } from "phosphor-react"
 import * as React from "react"
 import usePasswordContext from "../../context/PasswordContext"
@@ -28,7 +28,6 @@ type PasswordListItemProps = {
 
 export default function PasswordListItem(props: PasswordListItemProps) {
   const { deletePasswordItem } = usePasswordContext()
-
   const [isPasswordRevealedButton, setIsPasswordRevealedButton] = React.useState(false)
   const [isPopoverEditOpen, setIsPopoverEditOpen] = React.useState(false)
   const [isCopyButtonActive, setIsCopyButtonActive] = React.useState(false)
@@ -37,9 +36,7 @@ export default function PasswordListItem(props: PasswordListItemProps) {
   const createdDateFormatted = format(
     new Date(props.createdAt),
     "d 'de' LLLL 'às' HH:mm",
-    {
-      locale: ptBR,
-    }
+    { locale: ptBR }
   )
 
   const createdAt = formatDistanceToNow(new Date(props.createdAt!), {
@@ -57,6 +54,7 @@ export default function PasswordListItem(props: PasswordListItemProps) {
 
     setTimeout(() => {
       setIsCopyPopoverActive(false)
+      setIsCopyButtonActive(false)
     }, 800)
   }
 
@@ -86,7 +84,7 @@ export default function PasswordListItem(props: PasswordListItemProps) {
         <td>
           <Popover.Root open={isCopyPopoverActive} onOpenChange={setIsCopyPopoverActive}>
             <Popover.Trigger asChild>
-              <ButtonAction onClick={handleCopyPassword}>
+              <ButtonAction title="copiar senha" onClick={handleCopyPassword}>
                 {!isCopyButtonActive ? (
                   <Copy size={18} weight="bold" />
                 ) : (
@@ -98,17 +96,17 @@ export default function PasswordListItem(props: PasswordListItemProps) {
             <PopoverCopiedContent />
           </Popover.Root>
 
-          <ButtonAction onClick={handleToggleRevealedPassword}>
+          <ButtonAction title="revelar senha" onClick={handleToggleRevealedPassword}>
             {isPasswordRevealedButton ? (
               <Eye size={18} weight="bold" />
             ) : (
-              <EyeClosed size={18} weight="bold" />
+              <EyeSlash size={18} weight="bold" />
             )}
           </ButtonAction>
 
           <AlertDialog.Root>
             <AlertDialog.Trigger asChild>
-              <ButtonAction>
+              <ButtonAction title="excluir">
                 <TrashSimple size={18} weight="bold" />
               </ButtonAction>
             </AlertDialog.Trigger>

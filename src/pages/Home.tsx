@@ -11,7 +11,7 @@ import Switch from "../components/Switch"
 import usePasswordContext from "../context/PasswordContext"
 import {
   Container,
-  GeneratePasswordButton,
+	GeneratePasswordButton,
   TypeCharacterContainer,
 } from "../css/pages/Home"
 
